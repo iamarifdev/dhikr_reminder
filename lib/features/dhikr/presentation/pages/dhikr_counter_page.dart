@@ -1,6 +1,8 @@
+import 'package:dhikr_reminder/core/store/objectbox.dart';
 import 'package:dhikr_reminder/features/dhikr/domain/entities/dhikr_definition.dart';
 import 'package:dhikr_reminder/features/dhikr/presentation/widgets/dhikr_counter.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 class DhikrCounterPage extends StatefulWidget {
   final DhikrDefinitionEntity dhikr;
@@ -12,6 +14,18 @@ class DhikrCounterPage extends StatefulWidget {
 }
 
 class _DhikrCounterPageState extends State<DhikrCounterPage> {
+  final objectBox = GetIt.I<ObjectBox>();
+
+  void _countDown(int currentCount) {
+    widget.dhikr.currentCount = currentCount;
+    objectBox.dhikrs.putQueued(widget.dhikr);
+  }
+
+  void _completeDhikr(int completedCount) async {
+    widget.dhikr.completedCount = completedCount;
+    await objectBox.dhikrs.putAsync(widget.dhikr);
+  }
+
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -31,11 +45,11 @@ class _DhikrCounterPageState extends State<DhikrCounterPage> {
             const Spacer(),
             Center(
               child: Container(
-                margin: EdgeInsets.only(bottom: 50),
+                margin: const EdgeInsets.only(bottom: 50),
                 child: DhikrCounterWidget(
-                  maxCount: widget.dhikr.maxCount,
-                  currentCount: widget.dhikr.currentCount,
-                  completedCount: widget.dhikr.completedCount,
+                  dhikr: widget.dhikr,
+                  onCompleteDhikr: _completeDhikr,
+                  onCountDown: _countDown,
                 ),
               ),
             ),

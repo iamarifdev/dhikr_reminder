@@ -11,8 +11,8 @@ class DhikrDefinitionEntity {
   final String arabicTitle;
   final String title;
   final int maxCount;
-  final int currentCount;
-  final int? completedCount;
+  int currentCount;
+  int? completedCount;
 
   DhikrDefinitionEntity({
     this.objectBoxId,

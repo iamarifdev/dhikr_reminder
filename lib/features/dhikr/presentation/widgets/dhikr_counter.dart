@@ -1,16 +1,17 @@
+import 'package:dhikr_reminder/features/dhikr/domain/entities/dhikr_definition.dart';
 import 'package:dhikr_reminder/features/dhikr/presentation/widgets/progress_border_painter.dart';
 import 'package:flutter/material.dart';
 
 class DhikrCounterWidget extends StatefulWidget {
-  final int maxCount;
-  final int currentCount;
-  final int? completedCount;
+  final DhikrDefinitionEntity dhikr;
+  final Function(int completedCount) onCompleteDhikr;
+  final Function(int currentCount) onCountDown;
 
   const DhikrCounterWidget({
     super.key,
-    required this.maxCount,
-    required this.currentCount,
-    this.completedCount = 0,
+    required this.dhikr,
+    required this.onCompleteDhikr,
+    required this.onCountDown,
   });
 
   @override
@@ -23,13 +24,13 @@ class _DhikrCounterWidgetState extends State<DhikrCounterWidget> {
 
   @override
   void initState() {
-    _counter = widget.currentCount;
-    _completedCount = widget.completedCount!;
+    _counter = widget.dhikr.currentCount;
+    _completedCount = widget.dhikr.completedCount ?? 0;
 
     super.initState();
   }
 
-  double get percentage => _counter / widget.maxCount;
+  double get percentage => _counter / widget.dhikr.maxCount;
 
   @override
   Widget build(BuildContext context) {
@@ -38,11 +39,13 @@ class _DhikrCounterWidgetState extends State<DhikrCounterWidget> {
       borderRadius: BorderRadius.circular(deviceWidth),
       onTap: () {
         setState(() {
-          if (_counter >= widget.maxCount) {
+          if (_counter >= widget.dhikr.maxCount) {
             _counter = 0;
             _completedCount++;
+            widget.onCompleteDhikr(_completedCount);
           } else {
             _counter++;
+            widget.onCountDown(_counter);
           }
         });
       },
@@ -53,7 +56,7 @@ class _DhikrCounterWidgetState extends State<DhikrCounterWidget> {
           width: deviceWidth,
           alignment: Alignment.center,
           child: Text(
-            '$_counter/${widget.maxCount}',
+            '$_counter / ${widget.dhikr.maxCount}',
             style: const TextStyle(fontSize: 20),
           ),
         ),
