@@ -22,7 +22,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
       id: const obx_int.IdUid(1, 7837403286889798015),
       name: 'DhikrDefinitionEntity',
-      lastPropertyId: const obx_int.IdUid(7, 5161230015852708454),
+      lastPropertyId: const obx_int.IdUid(15, 3978832424527002492),
       flags: 0,
       properties: <obx_int.ModelProperty>[
         obx_int.ModelProperty(
@@ -37,16 +37,6 @@ final _entities = <obx_int.ModelEntity>[
             flags: 2080,
             indexId: const obx_int.IdUid(1, 9014654759481701213)),
         obx_int.ModelProperty(
-            id: const obx_int.IdUid(3, 1050622584608071366),
-            name: 'arabicTitle',
-            type: 9,
-            flags: 0),
-        obx_int.ModelProperty(
-            id: const obx_int.IdUid(4, 4536480623105018370),
-            name: 'title',
-            type: 9,
-            flags: 0),
-        obx_int.ModelProperty(
             id: const obx_int.IdUid(5, 5705287401113277239),
             name: 'maxCount',
             type: 6,
@@ -60,6 +50,46 @@ final _entities = <obx_int.ModelEntity>[
             id: const obx_int.IdUid(7, 5161230015852708454),
             name: 'completedCount',
             type: 6,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(8, 3672214216375202306),
+            name: 'arabicText',
+            type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(9, 564905934991567312),
+            name: 'enTitle',
+            type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(10, 763485389218864135),
+            name: 'bdTitle',
+            type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(11, 8570821906904808806),
+            name: 'bdPronunciation',
+            type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(12, 6592113033380498935),
+            name: 'bdTranslation',
+            type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(13, 1650468034347497129),
+            name: 'enPronunciation',
+            type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(14, 9018689045466061123),
+            name: 'enTranslation',
+            type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(15, 3978832424527002492),
+            name: 'reference',
+            type: 9,
             flags: 0)
       ],
       relations: <obx_int.ModelRelation>[],
@@ -107,7 +137,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
       lastSequenceId: const obx_int.IdUid(0, 0),
       retiredEntityUids: const [],
       retiredIndexUids: const [],
-      retiredPropertyUids: const [],
+      retiredPropertyUids: const [1050622584608071366, 4536480623105018370],
       retiredRelationUids: const [],
       modelVersion: 5,
       modelVersionParserMinimum: 5,
@@ -124,16 +154,28 @@ obx_int.ModelDefinition getObjectBoxModel() {
         },
         objectToFB: (DhikrDefinitionEntity object, fb.Builder fbb) {
           final idOffset = fbb.writeString(object.id);
-          final arabicTitleOffset = fbb.writeString(object.arabicTitle);
-          final titleOffset = fbb.writeString(object.title);
-          fbb.startTable(8);
+          final arabicTextOffset = fbb.writeString(object.arabicText);
+          final enTitleOffset = fbb.writeString(object.enTitle);
+          final bdTitleOffset = fbb.writeString(object.bdTitle);
+          final bdPronunciationOffset = fbb.writeString(object.bdPronunciation);
+          final bdTranslationOffset = fbb.writeString(object.bdTranslation);
+          final enPronunciationOffset = fbb.writeString(object.enPronunciation);
+          final enTranslationOffset = fbb.writeString(object.enTranslation);
+          final referenceOffset = fbb.writeString(object.reference);
+          fbb.startTable(16);
           fbb.addInt64(0, object.objectBoxId ?? 0);
           fbb.addOffset(1, idOffset);
-          fbb.addOffset(2, arabicTitleOffset);
-          fbb.addOffset(3, titleOffset);
           fbb.addInt64(4, object.maxCount);
           fbb.addInt64(5, object.currentCount);
           fbb.addInt64(6, object.completedCount);
+          fbb.addOffset(7, arabicTextOffset);
+          fbb.addOffset(8, enTitleOffset);
+          fbb.addOffset(9, bdTitleOffset);
+          fbb.addOffset(10, bdPronunciationOffset);
+          fbb.addOffset(11, bdTranslationOffset);
+          fbb.addOffset(12, enPronunciationOffset);
+          fbb.addOffset(13, enTranslationOffset);
+          fbb.addOffset(14, referenceOffset);
           fbb.finish(fbb.endTable());
           return object.objectBoxId ?? 0;
         },
@@ -144,11 +186,26 @@ obx_int.ModelDefinition getObjectBoxModel() {
               const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 4);
           final idParam = const fb.StringReader(asciiOptimization: true)
               .vTableGet(buffer, rootOffset, 6, '');
-          final arabicTitleParam =
+          final arabicTextParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 18, '');
+          final enTitleParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 20, '');
+          final bdTitleParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 22, '');
+          final bdPronunciationParam =
               const fb.StringReader(asciiOptimization: true)
-                  .vTableGet(buffer, rootOffset, 8, '');
-          final titleParam = const fb.StringReader(asciiOptimization: true)
-              .vTableGet(buffer, rootOffset, 10, '');
+                  .vTableGet(buffer, rootOffset, 24, '');
+          final bdTranslationParam =
+              const fb.StringReader(asciiOptimization: true)
+                  .vTableGet(buffer, rootOffset, 26, '');
+          final enPronunciationParam =
+              const fb.StringReader(asciiOptimization: true)
+                  .vTableGet(buffer, rootOffset, 28, '');
+          final enTranslationParam =
+              const fb.StringReader(asciiOptimization: true)
+                  .vTableGet(buffer, rootOffset, 30, '');
+          final referenceParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 32, '');
           final maxCountParam =
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 12, 0);
           final currentCountParam =
@@ -158,8 +215,14 @@ obx_int.ModelDefinition getObjectBoxModel() {
           final object = DhikrDefinitionEntity(
               objectBoxId: objectBoxIdParam,
               id: idParam,
-              arabicTitle: arabicTitleParam,
-              title: titleParam,
+              arabicText: arabicTextParam,
+              enTitle: enTitleParam,
+              bdTitle: bdTitleParam,
+              bdPronunciation: bdPronunciationParam,
+              bdTranslation: bdTranslationParam,
+              enPronunciation: enPronunciationParam,
+              enTranslation: enTranslationParam,
+              reference: referenceParam,
               maxCount: maxCountParam,
               currentCount: currentCountParam,
               completedCount: completedCountParam);
@@ -181,23 +244,47 @@ class DhikrDefinitionEntity_ {
   static final id = obx.QueryStringProperty<DhikrDefinitionEntity>(
       _entities[0].properties[1]);
 
-  /// See [DhikrDefinitionEntity.arabicTitle].
-  static final arabicTitle = obx.QueryStringProperty<DhikrDefinitionEntity>(
-      _entities[0].properties[2]);
-
-  /// See [DhikrDefinitionEntity.title].
-  static final title = obx.QueryStringProperty<DhikrDefinitionEntity>(
-      _entities[0].properties[3]);
-
   /// See [DhikrDefinitionEntity.maxCount].
   static final maxCount = obx.QueryIntegerProperty<DhikrDefinitionEntity>(
-      _entities[0].properties[4]);
+      _entities[0].properties[2]);
 
   /// See [DhikrDefinitionEntity.currentCount].
   static final currentCount = obx.QueryIntegerProperty<DhikrDefinitionEntity>(
-      _entities[0].properties[5]);
+      _entities[0].properties[3]);
 
   /// See [DhikrDefinitionEntity.completedCount].
   static final completedCount = obx.QueryIntegerProperty<DhikrDefinitionEntity>(
+      _entities[0].properties[4]);
+
+  /// See [DhikrDefinitionEntity.arabicText].
+  static final arabicText = obx.QueryStringProperty<DhikrDefinitionEntity>(
+      _entities[0].properties[5]);
+
+  /// See [DhikrDefinitionEntity.enTitle].
+  static final enTitle = obx.QueryStringProperty<DhikrDefinitionEntity>(
       _entities[0].properties[6]);
+
+  /// See [DhikrDefinitionEntity.bdTitle].
+  static final bdTitle = obx.QueryStringProperty<DhikrDefinitionEntity>(
+      _entities[0].properties[7]);
+
+  /// See [DhikrDefinitionEntity.bdPronunciation].
+  static final bdPronunciation = obx.QueryStringProperty<DhikrDefinitionEntity>(
+      _entities[0].properties[8]);
+
+  /// See [DhikrDefinitionEntity.bdTranslation].
+  static final bdTranslation = obx.QueryStringProperty<DhikrDefinitionEntity>(
+      _entities[0].properties[9]);
+
+  /// See [DhikrDefinitionEntity.enPronunciation].
+  static final enPronunciation = obx.QueryStringProperty<DhikrDefinitionEntity>(
+      _entities[0].properties[10]);
+
+  /// See [DhikrDefinitionEntity.enTranslation].
+  static final enTranslation = obx.QueryStringProperty<DhikrDefinitionEntity>(
+      _entities[0].properties[11]);
+
+  /// See [DhikrDefinitionEntity.reference].
+  static final reference = obx.QueryStringProperty<DhikrDefinitionEntity>(
+      _entities[0].properties[12]);
 }

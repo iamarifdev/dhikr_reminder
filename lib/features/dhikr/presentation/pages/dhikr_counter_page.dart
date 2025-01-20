@@ -31,7 +31,7 @@ class _DhikrCounterPageState extends State<DhikrCounterPage> {
     final textTheme = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.dhikr.title),
+        title: Text(widget.dhikr.enTitle),
       ),
       body: Container(
         padding: const EdgeInsets.all(16),
@@ -39,9 +39,9 @@ class _DhikrCounterPageState extends State<DhikrCounterPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(widget.dhikr.arabicTitle, style: textTheme.titleLarge),
+            Text(widget.dhikr.arabicText, style: textTheme.titleLarge),
             const SizedBox(height: 8),
-            Text(widget.dhikr.title, style: textTheme.titleMedium),
+            Text(widget.dhikr.enTitle, style: textTheme.titleMedium),
             const Spacer(),
             Center(
               child: Container(

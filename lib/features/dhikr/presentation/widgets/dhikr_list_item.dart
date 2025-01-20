@@ -25,9 +25,9 @@ class DhikrListItem extends StatelessWidget {
               ),
             );
           },
-          title: Text(dhikr.arabicTitle, style: textTheme.titleMedium),
+          title: Text(dhikr.arabicText, style: textTheme.titleMedium),
           subtitle: Text(
-            dhikr.title,
+            dhikr.enTitle,
             style: textTheme.bodyLarge,
           ),
           trailing: Text(
