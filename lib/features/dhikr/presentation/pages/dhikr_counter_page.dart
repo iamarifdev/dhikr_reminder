@@ -23,7 +23,7 @@ class _DhikrCounterPageState extends State<DhikrCounterPage> {
 
   void _completeDhikr(int completedCount) async {
     widget.dhikr.completedCount = completedCount;
-    widget.dhikr.currentCount = 0;
+    widget.dhikr.currentCount = 1;
     await objectBox.dhikrs.putAsync(widget.dhikr);
   }
 

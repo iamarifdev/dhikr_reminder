@@ -41,7 +41,7 @@ class _DhikrCounterWidgetState extends State<DhikrCounterWidget> {
       onTap: () {
         setState(() {
           if (_counter >= widget.dhikr.maxCount) {
-            _counter = 0;
+            _counter = 1;
             _completedCount++;
             widget.onCompleteDhikr(_completedCount);
           } else {
