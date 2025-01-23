@@ -32,24 +32,26 @@ class _DhikrCounterWidgetState extends State<DhikrCounterWidget> {
 
   double get percentage => _counter / widget.dhikr.maxCount;
 
+  void updateCounter() {
+    setState(() {
+      if (_counter >= widget.dhikr.maxCount) {
+        _counter = 1;
+        _completedCount++;
+        widget.onCompleteDhikr(_completedCount);
+      } else {
+        _counter++;
+        widget.onCountDown(_counter);
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final deviceWidth = MediaQuery.of(context).size.width * 0.75;
     return InkWell(
       borderRadius: BorderRadius.circular(deviceWidth),
-      onTap: () {
-        setState(() {
-          if (_counter >= widget.dhikr.maxCount) {
-            _counter = 1;
-            _completedCount++;
-            widget.onCompleteDhikr(_completedCount);
-          } else {
-            _counter++;
-            widget.onCountDown(_counter);
-          }
-        });
-      },
+      onTap: updateCounter,
       child: CustomPaint(
         painter: ProgressBorderPainter(percentage: percentage),
         child: Container(
