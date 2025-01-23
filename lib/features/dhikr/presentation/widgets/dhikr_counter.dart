@@ -34,6 +34,7 @@ class _DhikrCounterWidgetState extends State<DhikrCounterWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     final deviceWidth = MediaQuery.of(context).size.width * 0.75;
     return InkWell(
       borderRadius: BorderRadius.circular(deviceWidth),
@@ -55,9 +56,19 @@ class _DhikrCounterWidgetState extends State<DhikrCounterWidget> {
           height: deviceWidth,
           width: deviceWidth,
           alignment: Alignment.center,
-          child: Text(
-            '$_counter / ${widget.dhikr.maxCount}',
-            style: const TextStyle(fontSize: 20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                '$_counter / ${widget.dhikr.maxCount}',
+                style: textTheme.titleLarge,
+              ),
+              if (_completedCount > 0) ...[
+                const SizedBox(height: 8),
+                Text('Completed: $_completedCount times')
+              ]
+            ],
           ),
         ),
       ),

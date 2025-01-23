@@ -1,13 +1,14 @@
 import 'package:dhikr_reminder/features/dhikr/domain/entities/dhikr_definition.dart';
-import 'package:dhikr_reminder/features/dhikr/presentation/pages/dhikr_counter_page.dart';
 import 'package:flutter/material.dart';
 
 class DhikrListItem extends StatelessWidget {
   final DhikrDefinitionEntity dhikr;
+  final VoidCallback onNavigate;
 
   const DhikrListItem({
     super.key,
     required this.dhikr,
+    required this.onNavigate,
   });
 
   @override
@@ -18,21 +19,30 @@ class DhikrListItem extends StatelessWidget {
       child: Card(
         color: Colors.green.shade100,
         child: ListTile(
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => DhikrCounterPage(dhikr: dhikr),
-              ),
-            );
-          },
-          title: Text(dhikr.arabicText, style: textTheme.titleMedium),
+          onTap: onNavigate,
+          title: Text(dhikr.arabicText, style: textTheme.titleLarge),
           subtitle: Text(
-            dhikr.enTitle,
+            dhikr.bdTitle,
             style: textTheme.bodyLarge,
           ),
-          trailing: Text(
-            '${dhikr.currentCount}/${dhikr.maxCount}',
-            style: textTheme.titleMedium,
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (dhikr.completedCount! > 0) ...[
+                Chip(
+                  backgroundColor: Colors.green,
+                  label: Text(
+                    '${dhikr.completedCount}',
+                    style: textTheme.bodySmall,
+                  ),
+                ),
+                const SizedBox(width: 8),
+              ],
+              Text(
+                '${dhikr.currentCount}/${dhikr.maxCount}',
+                style: textTheme.titleMedium,
+              ),
+            ],
           ),
         ),
       ),

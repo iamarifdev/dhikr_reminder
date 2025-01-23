@@ -23,6 +23,7 @@ class _DhikrCounterPageState extends State<DhikrCounterPage> {
 
   void _completeDhikr(int completedCount) async {
     widget.dhikr.completedCount = completedCount;
+    widget.dhikr.currentCount = 0;
     await objectBox.dhikrs.putAsync(widget.dhikr);
   }
 
@@ -39,13 +40,41 @@ class _DhikrCounterPageState extends State<DhikrCounterPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(widget.dhikr.arabicText, style: textTheme.titleLarge),
-            const SizedBox(height: 8),
-            Text(widget.dhikr.enTitle, style: textTheme.titleMedium),
+            Align(
+              alignment: Alignment.centerRight,
+              child: Text(
+                widget.dhikr.arabicText,
+                style: textTheme.headlineLarge,
+              ),
+            ),
+            const SizedBox(height: 16),
+            const Divider(height: 16),
+            Text(
+              'উচ্চারণ: ${widget.dhikr.bdPronunciation}',
+              style: textTheme.titleMedium,
+            ),
+            Text(
+              'অর্থ: ${widget.dhikr.bdTranslation}',
+              style: textTheme.titleMedium,
+            ),
+            const Divider(height: 16),
+            Text(
+              'Pronounciation: ${widget.dhikr.enPronunciation}',
+              style: textTheme.titleMedium,
+            ),
+            Text(
+              'Meaning: ${widget.dhikr.enTranslation}',
+              style: textTheme.titleMedium,
+            ),
+            const Divider(height: 16),
+            Text(
+              widget.dhikr.reference,
+              style: textTheme.titleSmall,
+            ),
             const Spacer(),
             Center(
               child: Container(
-                margin: const EdgeInsets.only(bottom: 50),
+                margin: const EdgeInsets.only(bottom: 32),
                 child: DhikrCounterWidget(
                   dhikr: widget.dhikr,
                   onCompleteDhikr: _completeDhikr,

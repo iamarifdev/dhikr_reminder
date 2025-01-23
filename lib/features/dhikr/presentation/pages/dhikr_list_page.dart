@@ -1,8 +1,11 @@
 import 'package:dhikr_reminder/core/store/objectbox.dart';
 import 'package:dhikr_reminder/features/dhikr/domain/entities/dhikr_definition.dart';
+import 'package:dhikr_reminder/features/dhikr/presentation/pages/dhikr_counter_page.dart';
 import 'package:dhikr_reminder/features/dhikr/presentation/widgets/dhikr_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+
+final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
 
 class DhikrListPage extends StatefulWidget {
   const DhikrListPage({super.key});
@@ -13,6 +16,11 @@ class DhikrListPage extends StatefulWidget {
 
 class _DhikrListPageState extends State<DhikrListPage> {
   final objectBox = GetIt.I<ObjectBox>();
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +43,18 @@ class _DhikrListPageState extends State<DhikrListPage> {
 
                 return ListView(
                   children: dhikrs.map((dhikr) {
-                    return DhikrListItem(dhikr: dhikr);
+                    return DhikrListItem(
+                      dhikr: dhikr,
+                      onNavigate: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return DhikrCounterPage(dhikr: dhikr);
+                            },
+                          ),
+                        ).then((value) => setState(() {}));
+                      },
+                    );
                   }).toList(),
                 );
               }
